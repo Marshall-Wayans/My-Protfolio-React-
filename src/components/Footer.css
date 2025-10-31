@@ -1,0 +1,100 @@
+.footer {
+  padding: 3rem 5%;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer .social {
+  margin-bottom: 1.6rem;
+}
+
+.footer .social a {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  color: var(--accent-primary);
+  font-size: 1.2rem;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.footer .social a:hover {
+  background: var(--accent-primary);
+  color: #fff;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 43, 43, 0.3),
+              0 0 24px rgba(255, 43, 43, 0.15);
+  animation: redPulse 1.4s ease-in-out infinite alternate;
+}
+
+/* Glowing red pulse animation */
+@keyframes redPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 43, 43, 0.2),
+                0 0 20px rgba(255, 43, 43, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 43, 43, 0.5),
+                0 0 40px rgba(255, 43, 43, 0.25);
+  }
+}
+
+.footer .list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.footer .list a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.footer .list a:hover {
+  color: var(--accent-primary);
+  text-shadow: 0 0 8px rgba(255, 43, 43, 0.4);
+}
+
+.copyright {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2.5rem 8%;
+  }
+
+  .footer .social a {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .footer .list {
+    gap: 1rem;
+  }
+
+  .copyright {
+    font-size: 0.85rem;
+  }
+}

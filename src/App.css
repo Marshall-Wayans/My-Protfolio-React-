@@ -1,0 +1,41 @@
+:root {
+  --bg-primary: #0b0b0b;
+  --bg-secondary: #111111;
+  --bg-card: #1a1a1a;
+  --text-primary: #fff;
+  --text-secondary: #9a9a9a;
+  --accent-primary: #ff2b2b;
+  --accent-secondary: #ff5959;
+  --border-color: rgba(255, 43, 43, 0.12);
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+}
+
+.app {
+  background: radial-gradient(circle at 20% 50%, rgba(255,43,43,0.02) 0%, transparent 60%);
+  transition: background 0.5s ease;
+}
+
+.main-content {
+  overflow: hidden;
+}
+
+/* Optional: soft subtle pulse animation on background */
+@keyframes bgPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.app {
+  background: radial-gradient(circle at 20% 50%, rgba(255,43,43,0.02) 0%, rgba(255,43,43,0.05) 60%);
+  background-size: 200% 200%;
+  animation: bgPulse 20s ease infinite;
+}
