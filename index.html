@@ -2,12 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- IMPORTANT: set base to your repo name for GitHub Pages repo sites -->
+    <base href="/REPO_NAME/" />
+
+    <link rel="icon" type="image/svg+xml" href="vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio</title>
+    <meta name="description" content="Marshal Wayans — Portfolio" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <title>Marshal Wayans — Portfolio</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- use a relative path so the script loads correctly under the base -->
+    <script type="module" src="src/main.jsx"></script>
   </body>
 </html>
