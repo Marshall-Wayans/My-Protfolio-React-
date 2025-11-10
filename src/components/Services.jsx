@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Services.css";
 
@@ -41,6 +41,29 @@ const services = [
 ];
 
 export default function Services() {
+  const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 });
+
+  // Dynamic gradient movement (like Hero)
+  useEffect(() => {
+    const handleMove = (e) => {
+      let x, y;
+      if (e.touches && e.touches[0]) {
+        x = (e.touches[0].clientX / window.innerWidth) * 100;
+        y = (e.touches[0].clientY / window.innerHeight) * 100;
+      } else {
+        x = (e.clientX / window.innerWidth) * 100;
+        y = (e.clientY / window.innerHeight) * 100;
+      }
+      setGradientPos({ x, y });
+    };
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("touchmove", handleMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("touchmove", handleMove);
+    };
+  }, []);
+
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: (i) => ({
@@ -51,14 +74,36 @@ export default function Services() {
   };
 
   return (
-    <section className="services" id="services">
+    <motion.section
+      className="services"
+      id="services"
+      style={{
+        background: `
+          radial-gradient(
+            circle at ${gradientPos.x}% ${gradientPos.y}%,
+            rgba(255, 43, 43, 0.25) 0%,
+            rgba(255, 43, 43, 0.05) 25%,
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 90%,
+            rgba(255, 43, 43, 0.08) 0%,
+            transparent 60%
+          )
+        `,
+      }}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+    >
       <div className="services-container">
         <motion.h2
           className="heading"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
         >
           My <span>Services</span>
         </motion.h2>
@@ -79,20 +124,20 @@ export default function Services() {
               </div>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
-              <motion.a
+              {/* <motion.a
                 href="#"
                 className="btn"
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 0 25px rgba(255, 43, 43, 0.5)",
+                  boxShadow: "0 0 25px rgba(255, 43, 43, 0.6)",
                 }}
               >
                 Learn More
-              </motion.a>
+              </motion.a> */}
             </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

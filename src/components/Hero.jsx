@@ -88,44 +88,68 @@ export default function Hero() {
           </div>
 
           <p>
-            I'm a passionate software engineer crafting elegant and optimized solutions
-            with precision and creativity.
+            I'm a passionate software engineer crafting elegant and optimized
+            solutions with precision and creativity.
           </p>
 
+          {/* === SOCIAL ICONS SECTION === */}
           <div className="social-icons">
             <motion.a
-              whileHover={{ scale: 1.15, boxShadow: "0 0 20px rgba(255,43,43,0.7)" }}
+              whileHover={{
+                scale: 1.15,
+                boxShadow: "0 0 20px rgba(255,43,43,0.7)",
+              }}
               href="https://github.com/Marshall-Wayans"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub"
             >
               <i className="fa-brands fa-github"></i>
             </motion.a>
+
             <motion.a
-              whileHover={{ scale: 1.15, boxShadow: "0 0 20px rgba(255,43,43,0.7)" }}
+              whileHover={{
+                scale: 1.15,
+                boxShadow: "0 0 20px rgba(255,43,43,0.7)",
+              }}
               href="https://twitter.com"
               target="_blank"
               rel="noreferrer"
+              aria-label="Twitter"
             >
               <i className="fa-brands fa-twitter"></i>
             </motion.a>
+
             <motion.a
-              whileHover={{ scale: 1.15, boxShadow: "0 0 20px rgba(255,43,43,0.7)" }}
+              whileHover={{
+                scale: 1.15,
+                boxShadow: "0 0 20px rgba(255,43,43,0.7)",
+              }}
               href="https://linkedin.com"
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn"
             >
               <i className="fa-brands fa-linkedin"></i>
             </motion.a>
           </div>
 
           <motion.a
-            href="#contact"
-            className="btn"
-            whileHover={{ scale: 1.08, boxShadow: "0 0 25px rgba(255,43,43,0.8)" }}
-          >
-            HIRE ME <i className="fa-solid fa-arrow-right"></i>
-          </motion.a>
+  href="#projects"
+  className="btn"
+  whileHover={{
+    scale: 1.08,
+    boxShadow: "0 0 25px rgba(255,43,43,0.8)",
+  }}
+  onClick={(e) => {
+    e.preventDefault();
+    document
+      .querySelector("#projects")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }}
+>
+  MY PROJECTS <i className="fa-solid fa-arrow-right"></i>
+</motion.a>
         </motion.div>
 
         <motion.div

@@ -1,173 +1,153 @@
-import React, { useRef, useState, useEffect } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  AnimatePresence,
-} from "framer-motion";
-import coding from "../assets/coding.jpg";
-import website from "../assets/website.jpg";
-import server from "../assets/server.jpg";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import ProjectModal from "./ProjectsModal";
 import "./Projects.css";
 
-const projects = [
-  {
-    img: coding,
-    title: "Web & Application Development",
-    desc:
-      "Creating seamless user experiences through stunning and responsive web interfaces using the latest technologies.",
-    details:
-      "This project focused on building a fast, fully responsive portfolio website using React, Vite, and TailwindCSS. I chose this project to showcase my front-end expertise and modern UI/UX implementation. It demonstrates dynamic animations and performance-optimized React components.",
-    tools: ["React", "Vite", "Framer Motion", "TailwindCSS"],
-    live: "https://github.com/yourusername/webapp-project",
-  },
-  {
-    img: website,
-    title: "Cyber Security Analysis",
-    desc:
-      "Designing and implementing security solutions that protect websites and applications from cyber threats.",
-    details:
-      "This cybersecurity dashboard visualizes network vulnerability metrics using React and Chart.js. I built it to help users identify potential breaches and strengthen web defenses.",
-    tools: ["React", "Chart.js", "Node.js", "Express"],
-    live: "https://github.com/yourusername/cyber-security-dashboard",
-  },
-  {
-    img: server,
-    title: "Network Administrator",
-    desc:
-      "Managing and optimizing networks using Cisco technologies, ensuring reliable performance and security.",
-    details:
-      "This project simulates a scalable enterprise network infrastructure. I chose this to highlight my knowledge in configuring routers, switches, and secure connections for efficient communication.",
-    tools: ["Cisco Packet Tracer", "Networking Fundamentals", "Linux"],
-    live: "https://github.com/yourusername/network-admin-sim",
-  },
-];
-
 export default function Projects() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
+  const cursorRef = useRef(null);
+  const isTouchRef = useRef(false);
+  const rafRef = useRef(null);
+  const pointer = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const cursorState = useRef({
+    x: pointer.current.x,
+    y: pointer.current.y,
+    scale: 1,
   });
-  const glowY = useTransform(scrollYProgress, [0, 1], ["-40%", "120%"]);
 
-  // Modal state
-  const [activeProject, setActiveProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  // Touch handling: first tap reveals overlay, second tap opens modal
-  const [isTouch, setIsTouch] = useState(false);
-  const [tappedIndex, setTappedIndex] = useState(null);
-  const tappedTimerRef = useRef(null);
-
-  // Focus trap refs
-  const modalRef = useRef(null);
-  const closeBtnRef = useRef(null);
-  const lastFocusedRef = useRef(null);
-
+  // detect touch devices
   useEffect(() => {
-    setIsTouch(typeof window !== "undefined" && "ontouchstart" in window);
+    isTouchRef.current =
+      typeof window !== "undefined" && "ontouchstart" in window;
+    if (isTouchRef.current) {
+      cursorRef.current?.classList.add("cursor--hidden");
+    }
   }, []);
 
-  // Clean tapped timer on unmount
+  // cursor animation
   useEffect(() => {
+    const cursorEl = cursorRef.current;
+    if (!cursorEl) return;
+    const lerp = (a, b, n) => (1 - n) * a + n * b;
+
+    const animateCursor = () => {
+      cursorState.current.x = lerp(cursorState.current.x, pointer.current.x, 0.15);
+      cursorState.current.y = lerp(cursorState.current.y, pointer.current.y, 0.15);
+      cursorEl.style.transform = `translate3d(${
+        cursorState.current.x - 18
+      }px, ${cursorState.current.y - 18}px, 0) scale(${
+        cursorState.current.scale
+      })`;
+      rafRef.current = requestAnimationFrame(animateCursor);
+    };
+
+    rafRef.current = requestAnimationFrame(animateCursor);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  // pointer tracking
+  useEffect(() => {
+    const move = (e) => {
+      if (e.touches && e.touches[0]) {
+        pointer.current.x = e.touches[0].clientX;
+        pointer.current.y = e.touches[0].clientY;
+      } else {
+        pointer.current.x = e.clientX;
+        pointer.current.y = e.clientY;
+      }
+    };
+    window.addEventListener("mousemove", move);
+    window.addEventListener("touchmove", move, { passive: true });
     return () => {
-      if (tappedTimerRef.current) clearTimeout(tappedTimerRef.current);
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("touchmove", move);
     };
   }, []);
 
-  // Modal open/close side effects: focus trap, ESC, scroll lock
+  // hover effects for cursor
   useEffect(() => {
-    if (!activeProject) {
-      // restore focus and body scroll when modal closes
-      if (lastFocusedRef.current) lastFocusedRef.current.focus?.();
-      document.body.classList.remove("modal-open");
-      document.removeEventListener("keydown", handleKeyDown);
-      return;
-    }
+    const cursor = cursorRef.current;
+    const hoverTargets = document.querySelectorAll(
+      ".projects-box, .view-project-btn"
+    );
 
-    // Save last focused element and focus the close button
-    lastFocusedRef.current = document.activeElement;
-    document.body.classList.add("modal-open");
+    hoverTargets.forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("cursor--hover");
+        cursorState.current.scale = 1.8;
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("cursor--hover");
+        cursorState.current.scale = 1;
+      });
+    });
 
-    // small delay to ensure element exists
-    setTimeout(() => {
-      closeBtnRef.current?.focus();
-    }, 50);
-
-    function handleKeyDown(e) {
-      if (e.key === "Escape") {
-        setActiveProject(null);
-      } else if (e.key === "Tab") {
-        // trap focus inside modal
-        const modal = modalRef.current;
-        if (!modal) return;
-        const focusable = modal.querySelectorAll(
-          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-        );
-        if (!focusable.length) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeProject]);
-
-  // Click handler for cards (desktop vs touch behavior)
-  function handleCardClick(idx, project, e) {
-    if (isTouch) {
-      // if tapped before, open modal
-      if (tappedIndex === idx) {
-        setTappedIndex(null);
-        setActiveProject(project);
-        return;
-      }
-      // otherwise show overlay for this card first
-      setTappedIndex(idx);
-      if (tappedTimerRef.current) clearTimeout(tappedTimerRef.current);
-      tappedTimerRef.current = setTimeout(() => setTappedIndex(null), 2800); // auto clear after 2.8s
-      return;
-    }
-
-    // Desktop: open immediately
-    setActiveProject(project);
-  }
-
-  // When tapping elsewhere, remove tapped overlay
-  useEffect(() => {
-    function clearTapOnOutside(e) {
-      // if click/touch not inside a projects-box, clear
-      if (!e.target.closest?.(".projects-box")) {
-        setTappedIndex(null);
-      }
-    }
-    window.addEventListener("touchstart", clearTapOnOutside, { passive: true });
-    window.addEventListener("pointerdown", clearTapOnOutside);
     return () => {
-      window.removeEventListener("touchstart", clearTapOnOutside);
-      window.removeEventListener("pointerdown", clearTapOnOutside);
+      hoverTargets.forEach((el) => {
+        el.removeEventListener("mouseenter", () => {});
+        el.removeEventListener("mouseleave", () => {});
+      });
     };
   }, []);
+
+  // sample projects
+  const projects = [
+    {
+      id: 1,
+      title: "E-Commerce Platform",
+      description: "A modern shopping experience with seamless checkout",
+      image:
+        "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop",
+      category: "Web Development",
+      why: "To create a fast, secure, and scalable shopping experience.",
+      how: "Built with React, Node.js, and Stripe API for real payments.",
+      tools: ["React", "Node.js", "Stripe", "MongoDB"],
+      liveUrl: "https://your-ecommerce-demo-link.com",
+    },
+    {
+      id: 2,
+      title: "Portfolio Dashboard",
+      description: "Analytics dashboard for creative professionals",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+      category: "UI/UX Design",
+      why: "To visualize project stats and client analytics beautifully.",
+      how: "Used Next.js, TailwindCSS, and Framer Motion for animations.",
+      tools: ["Next.js", "TailwindCSS", "Framer Motion"],
+      liveUrl: "https://your-dashboard-demo-link.com",
+    },
+    {
+      id: 3,
+      title: "Fitness Tracking App",
+      description: "Track workouts and achieve fitness goals",
+      image:
+        "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop",
+      category: "Mobile Design",
+      why: "To help users stay motivated and monitor their progress.",
+      how: "Developed with React Native and Firebase backend.",
+      tools: ["React Native", "Firebase", "Expo"],
+      liveUrl: "https://your-fitness-app-demo-link.com",
+    },
+    {
+      id: 4,
+      title: "Restaurant Booking System",
+      description: "Streamlined reservation management",
+      image:
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop",
+      category: "Web Development",
+      why: "To simplify restaurant booking workflows.",
+      how: "Created using MERN stack and integrated Google Calendar API.",
+      tools: ["MongoDB", "Express", "React", "Node.js"],
+      liveUrl: "https://your-restaurant-demo-link.com",
+    },
+  ];
 
   return (
-    <section className="projects" id="projects" ref={ref}>
-      <motion.div
-        className="scroll-glow"
-        style={{ top: glowY }}
-        aria-hidden="true"
-      />
+    <section className="projects">
+      {/* Custom Cursor */}
+      <div ref={cursorRef} className="site-cursor" aria-hidden="true" />
+
       <div className="projects-wrapper">
         <motion.h2
           className="heading"
@@ -179,92 +159,35 @@ export default function Projects() {
           My <span>Projects</span>
         </motion.h2>
 
+        {/* Projects Grid */}
         <div className="projects-grid">
-          {projects.map((p, idx) => (
+          {projects.map((project, index) => (
             <motion.div
-              key={idx}
-              className={`projects-box ${tappedIndex === idx ? "tapped" : ""}`}
-              initial={{ opacity: 0, y: 20 }}
+              key={project.id}
+              className="projects-box"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.08, ease: "easeOut" }}
-              whileHover={{ scale: 1.03, boxShadow: "0 0 40px rgba(255,43,43,0.45)" }}
-              onClick={(e) => handleCardClick(idx, p, e)}
-              onTouchStart={() => setTappedIndex(idx)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleCardClick(idx, p, e);
-              }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ y: -10, scale: 1.03 }}
+              onClick={() => setSelectedProject(project)}
             >
-              <img src={p.img} alt={p.title} />
+              <img src={project.image} alt={project.title} />
               <div className="projects-info">
-                {/* overlay appears on hover (desktop) or when tapped (mobile) */}
-                <div className="overlay" aria-hidden="true" />
-                <h4>{p.title}</h4>
-                <p>{p.desc}</p>
+                <span className="category">{project.category}</span>
+                <h4>{project.title}</h4>
+                <p>{project.description}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      <AnimatePresence>
-        {activeProject && (
-          <>
-            <motion.div
-              className="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveProject(null)}
-            />
-            <motion.div
-              className="project-modal"
-              ref={modalRef}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="project-title"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.28, ease: "easeOut" }}
-            >
-              <button
-                className="close-btn"
-                ref={closeBtnRef}
-                onClick={() => setActiveProject(null)}
-                aria-label="Close preview"
-              >
-                &times;
-              </button>
-
-              <img src={activeProject.img} alt={activeProject.title} />
-
-              <div className="modal-content">
-                <h3 id="project-title">{activeProject.title}</h3>
-                <p className="details">{activeProject.details}</p>
-
-                <div className="tools" aria-hidden={false}>
-                  {activeProject.tools.map((tool, i) => (
-                    <span key={i}>{tool}</span>
-                  ))}
-                </div>
-
-                <motion.a
-                  href={activeProject.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="live-btn"
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 25px rgba(255, 43, 43, 0.45)" }}
-                >
-                  View Live Site
-                </motion.a>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }
