@@ -19,7 +19,7 @@ export default function Projects() {
 
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // detect touch devices
+  
   useEffect(() => {
     isTouchRef.current =
       typeof window !== "undefined" && "ontouchstart" in window;
@@ -28,7 +28,7 @@ export default function Projects() {
     }
   }, []);
 
-  // cursor animation
+  
   useEffect(() => {
     const cursorEl = cursorRef.current;
     if (!cursorEl) return;
@@ -49,7 +49,7 @@ export default function Projects() {
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
-  // pointer tracking
+ 
   useEffect(() => {
     const move = (e) => {
       if (e.touches && e.touches[0]) {
@@ -68,7 +68,7 @@ export default function Projects() {
     };
   }, []);
 
-  // hover effects for cursor
+  
   useEffect(() => {
     const cursor = cursorRef.current;
     const hoverTargets = document.querySelectorAll(
@@ -94,7 +94,7 @@ export default function Projects() {
     };
   }, []);
 
-  // sample projects
+  
   const projects = [
 {
   id: 1,
@@ -129,18 +129,18 @@ export default function Projects() {
   "tools": ["React", "TailwindCSS", "Framer Motion"],
   "liveUrl": "https://marshall-wayans.github.io/HarmonyTravels/"
 },
-    {
-      id: 4,
-      title: "Restaurant Booking System",
-      description: "Streamlined reservation management",
-      image:
-        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop",
-      category: "Web Development",
-      why: "To simplify restaurant booking workflows.",
-      how: "Created using MERN stack and integrated Google Calendar API.",
-      tools: ["MongoDB", "Express", "React", "Node.js"],
-      liveUrl: "https://your-restaurant-demo-link.com",
-    },
+    // {
+    //   id: 4,
+    //   title: "Restaurant Booking System",
+    //   description: "Streamlined reservation management",
+    //   image:
+    //     "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop",
+    //   category: "Web Development",
+    //   why: "To simplify restaurant booking workflows.",
+    //   how: "Created using MERN stack and integrated Google Calendar API.",
+    //   tools: ["MongoDB", "Express", "React", "Node.js"],
+    //   liveUrl: "https://your-restaurant-demo-link.com",
+    // },
   ];
 
   return (

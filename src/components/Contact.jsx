@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import resume from "../assets/Marshal-1(RESUME).pdf";
 import "./Contact.css";
 
 const Contact = () => {
@@ -175,7 +176,7 @@ const Contact = () => {
               </a>
               <a
                 className="btn ghost"
-                href="/Marshal-1(RESUME).pdf"
+                href= {resume}
                 target="_blank"
                 rel="noreferrer"
               >
