@@ -43,7 +43,7 @@ const services = [
 export default function Services() {
   const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 });
 
-  // Dynamic gradient movement (like Hero)
+  
   useEffect(() => {
     const handleMove = (e) => {
       let x, y;

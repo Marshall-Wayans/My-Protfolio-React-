@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 
-/* ===== Modal Container ===== */
+/* == Modal Container == */
 .modal-container {
   position: fixed;
   inset: 1rem;
@@ -27,7 +27,7 @@
   }
 }
 
-/* ===== Close Button ===== */
+/* == Close Button == */
 .close-btn {
   position: absolute;
   top: 1rem;
@@ -50,7 +50,7 @@
   color: #333;
 }
 
-/* ===== Content ===== */
+/* == Content == */
 .modal-content {
   padding: 2rem;
 }
@@ -85,7 +85,7 @@
   line-height: 1.6;
 }
 
-/* ===== Sections ===== */
+/* == Sections == */
 .modal-sections {
   display: flex;
   flex-direction: column;
@@ -105,7 +105,7 @@
   font-size: 1rem;
 }
 
-/* ===== Tools Tags ===== */
+/* == Tools Tags == */
 .tools-container {
   display: flex;
   flex-wrap: wrap;
@@ -121,7 +121,7 @@
   font-weight: 500;
 }
 
-/* ===== Button ===== */
+/* == Button == */
 .view-project-btn {
   margin-top: 2rem;
   display: inline-flex;
@@ -147,7 +147,7 @@
   height: 1.25rem;
 }
 
-/* ===== Dark Mode ===== */
+/* == Dark Mode == */
 @media (prefers-color-scheme: dark) {
   .modal-container {
     --modal-bg: #1f2937;

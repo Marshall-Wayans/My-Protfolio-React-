@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ProjectModal from "./ProjectsModal";
+import iccmkenya from "../assets/iccmkenya.png";
+import qikao from "../assets/qikao.png";
+import harmony from "../assets/harmony.png";
 import "./Projects.css";
 
 export default function Projects() {
@@ -93,42 +96,39 @@ export default function Projects() {
 
   // sample projects
   const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "A modern shopping experience with seamless checkout",
-      image:
-        "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop",
-      category: "Web Development",
-      why: "To create a fast, secure, and scalable shopping experience.",
-      how: "Built with React, Node.js, and Stripe API for real payments.",
-      tools: ["React", "Node.js", "Stripe", "MongoDB"],
-      liveUrl: "https://your-ecommerce-demo-link.com",
-    },
-    {
-      id: 2,
-      title: "Portfolio Dashboard",
-      description: "Analytics dashboard for creative professionals",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-      category: "UI/UX Design",
-      why: "To visualize project stats and client analytics beautifully.",
-      how: "Used Next.js, TailwindCSS, and Framer Motion for animations.",
-      tools: ["Next.js", "TailwindCSS", "Framer Motion"],
-      liveUrl: "https://your-dashboard-demo-link.com",
-    },
-    {
-      id: 3,
-      title: "Fitness Tracking App",
-      description: "Track workouts and achieve fitness goals",
-      image:
-        "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop",
-      category: "Mobile Design",
-      why: "To help users stay motivated and monitor their progress.",
-      how: "Developed with React Native and Firebase backend.",
-      tools: ["React Native", "Firebase", "Expo"],
-      liveUrl: "https://your-fitness-app-demo-link.com",
-    },
+{
+  id: 1,
+  title: "Charity Organization",
+  description: "A community-driven platform built to highlight the mission and impact of ICCM Kenya.",
+  image: iccmkenya,
+  category: "Web Development",
+  why: "I wanted to create a meaningful project that wasn’t just about code, but about people. ICCM Kenya’s mission to uplift communities inspired me to design a website that gives their work visibility and encourages support.",
+  how: "I built it using React and Vite to achieve a smooth, fast experience. The website features dynamic routing with React Router, a clean modern UI, scroll animations, and dark mode support. It’s responsive, light, and tells a story with every section.",
+  tools: ["React", "Vite", "React Router", "CSS"],
+  liveUrl: "https://marshall-wayans.github.io/NGO-Website/",
+},
+{
+  "id": 2,
+  "title": "Qikao Restaurant App",
+  "description": "Analytics dashboard for creative professionals",
+  "image": qikao,
+  "category": "Web Development",
+  "why": "I built this project because I wanted to give restaurant owners and creative professionals an easy way to see their project stats and client data. A lot of dashboards out there are either too messy or boring, so I wanted to make something that looks clean and is easy to use.",
+  "how": "I used Next.js to make the app fast and smooth, TailwindCSS for a responsive design that works on any device, and Framer Motion to add some cool animations. My goal was to make the dashboard easy to read and enjoyable to use.",
+  "tools": ["React", "Vite", "Routing", "UI / Icons / Styling", "Local Storage"],
+  "liveUrl": "https://marshall-wayans.github.io/Qikao-Restaurant/"
+},
+{
+  "id": 2,
+  "title": "Travel Explorer Website",
+  "description": "A modern, interactive website for discovering and planning trips",
+  "image": harmony,
+  "category": "Web Development",
+  "why": "I built this project because I love traveling and wanted to create a place where people can explore destinations easily and get inspired for their next trip. I wanted it to be simple to use, visually appealing, and make planning a trip fun rather than stressful.",
+  "how": "I built it using React for a smooth and interactive interface, styled everything with TailwindCSS to make it responsive and clean, and added animations with Framer Motion to make the site feel lively and modern.",
+  "tools": ["React", "TailwindCSS", "Framer Motion"],
+  "liveUrl": "https://marshall-wayans.github.io/HarmonyTravels/"
+},
     {
       id: 4,
       title: "Restaurant Booking System",
@@ -183,7 +183,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Modal */}
+      
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

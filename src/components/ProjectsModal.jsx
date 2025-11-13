@@ -10,7 +10,7 @@ const ProjectModal = ({ project, onClose }) => {
     <AnimatePresence>
       {project && (
         <>
-          {/* ===== Overlay Background ===== */}
+          {/*== Overlay Background ==*/}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -19,19 +19,19 @@ const ProjectModal = ({ project, onClose }) => {
             className="modal-overlay"
           />
 
-          {/* ===== Modal Container ===== */}
+          {/* == Modal Container == */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="modal-container"
           >
-            {/* ===== Close Button ===== */}
+            {/* == Close Button == */}
             <button onClick={onClose} className="close-btn">
               <X className="close-icon" />
             </button>
 
-            {/* ===== Modal Content ===== */}
+            {/* == Modal Content == */}
             <div className="modal-content">
               <motion.img
                 initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ const ProjectModal = ({ project, onClose }) => {
               <h2 className="modal-title">{project.title}</h2>
               <p className="modal-description">{project.description}</p>
 
-              {/* ===== Project Details ===== */}
+              {/* == Project Details == */}
               <div className="modal-sections">
                 <div>
                   <h3 className="modal-subtitle">Why I Created It</h3>
@@ -68,7 +68,7 @@ const ProjectModal = ({ project, onClose }) => {
                 </div>
               </div>
 
-              {/* ===== Live Project Button ===== */}
+              {/* == Live Project Button == */}
               <motion.a
                 href={project.liveUrl}
                 target="_blank"

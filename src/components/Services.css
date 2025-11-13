@@ -135,7 +135,7 @@
   transform: translateY(-3px);
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .heading {
     font-size: 2rem;

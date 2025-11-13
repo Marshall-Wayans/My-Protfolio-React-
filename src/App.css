@@ -27,7 +27,7 @@ body, html, #root {
   overflow: hidden;
 }
 
-/* Optional: soft subtle pulse animation on background */
+
 @keyframes bgPulse {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
