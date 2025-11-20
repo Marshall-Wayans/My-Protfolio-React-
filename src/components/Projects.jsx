@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import ProjectModal from "./ProjectsModal";
 import iccmkenya from "../assets/iccmkenya.png";
 import qikao from "../assets/qikao.png";
-import harmony from "../assets/harmony.png";
+import harmony from "../assets/Harmony.png";
+import qikaoo from "../assets/Qikaoo.png";
+import portfolio from "../assets/Portfolio.png";
 import "./Projects.css";
 
 export default function Projects() {
@@ -96,8 +98,46 @@ export default function Projects() {
 
   
   const projects = [
+
 {
-  id: 1,
+id: 1,
+title: "Qikao Restaurant",
+description: "A modern restaurant website built to showcase my ability to design and develop multi-page front-end applications.",
+image: qikaoo,
+category: "Web Development",
+why: "I created this project as a way to genuinely test myself beyond simple layouts and move into building a complete, realistic website experience. I wanted something that felt like a real business site, where I could think about user flow, page structure, interaction, and design choices that matter in actual development. Building Qikao Restaurant allowed me to challenge myself, grow, and demonstrate to recruiters that I can turn an idea into a working product with visual polish and functionality.",
+how: "I built it using HTML, CSS, and JavaScript, focusing on clean design, responsive layouts, and smooth navigation across multiple pages. The project includes a fully structured menu page, home page, contact page, and additional sections that reflect how real users would explore a restaurant’s website. Through this, I strengthened my core front-end skills and improved the way I think about experience, layout, and front-end problem solving.",
+tools: ["HTML", "CSS", "JavaScript"],
+liveUrl: "https://marshall-wayans.github.io/Qikao/",
+},
+
+{
+  id: 2,
+  title: "Personal Portfolio Website",
+  description: "A portfolio website to showcase my projects, skills, and development journey",
+  image: portfolio,
+  category: "Web Development",
+  why: "I built this portfolio to have a central place where I could showcase my work and track my growth as a developer. While the first version was okay, I wanted to keep improving and make a version that reflected my current skills, design sense, and understanding of interactive features. It was important to me that recruiters could see not just what I built, but also how I think about structure, design, and user experience. This project is a personal milestone showing my dedication to continual learning and improvement.",
+  how: "I built the portfolio using HTML, CSS, and JavaScript, focusing on clean layouts, responsive design, and interactive elements. The site allows visitors to easily explore my projects and skills, while demonstrating my ability to create functional and visually appealing websites without relying on frameworks. This helped me strengthen my core front-end skills and showcase my development journey.",
+  tools: ["HTML", "CSS", "JavaScript"],
+  liveUrl: "https://marshall-wayans.github.io/My-Website/"
+},
+
+{
+  id: 3,
+  title: "Travel Explorer Website",
+  description: "A modern, interactive website for discovering and planning trips",
+  image: harmony,
+  category: "Web Development",
+  why: "I created this project because I wanted to challenge myself and practice JavaScript in a real and practical scenario. Instead of just building a static page, I wanted users to actually interact with the site—exploring destinations, making selections, and experiencing something that feels like a real travel platform. It was also a chance to focus on layout, design, and user flow, and to show recruiters that I can think about both code and user experience at the same time.",
+  how: "I built the website using HTML, CSS, and JavaScript, focusing on creating a clean layout and dynamic features that respond to user selections. This project helped me strengthen my DOM manipulation, event handling, and UI development skills, while getting comfortable building something that feels alive and functional from start to finish.",
+  tools: ["HTML", "CSS", "JavaScript"],
+  liveUrl: "https://marshall-wayans.github.io/HarmonyTravels/"
+},
+
+
+{
+  id: 4,
   title: "Charity Organization",
   description: "A community-driven platform built to highlight the mission and impact of ICCM Kenya.",
   image: iccmkenya,
@@ -108,27 +148,27 @@ export default function Projects() {
   liveUrl: "https://marshall-wayans.github.io/NGO-Website/",
 },
 {
-  "id": 2,
-  "title": "Qikao Restaurant App",
-  "description": "Analytics dashboard for creative professionals",
-  "image": qikao,
-  "category": "Web Development",
-  "why": "I built this project because I wanted to give restaurant owners and creative professionals an easy way to see their project stats and client data. A lot of dashboards out there are either too messy or boring, so I wanted to make something that looks clean and is easy to use.",
-  "how": "I used Next.js to make the app fast and smooth, TailwindCSS for a responsive design that works on any device, and Framer Motion to add some cool animations. My goal was to make the dashboard easy to read and enjoyable to use.",
-  "tools": ["React", "Vite", "Routing", "UI / Icons / Styling", "Local Storage"],
-  "liveUrl": "https://marshall-wayans.github.io/Qikao-Restaurant/"
+  id: 5,
+  title: "Qikao Restaurant App",
+  description: "A modern React-based rebuild of my original Qikao Restaurant website.",
+  image: qikao,
+  category: "Web Development",
+  why: "After building the first version of Qikao Restaurant with HTML, CSS, and JavaScript, I realized that I wanted to take the project further and show that I could build the same experience using modern frameworks. Rebuilding it in React allowed me to demonstrate growth, write cleaner and more maintainable code, and work with components, props, and state—just like real production applications. It also shows recruiters that I don’t just repeat tutorials; I challenge myself to improve and build the same idea in more professional and scalable technologies.",
+  how: "I recreated the project in React to experiment with component-based development, better code structure, and smoother navigation using routing. This version allows for easier future features, faster updates, and a more professional development workflow. It reflects how I would build a real client project in a modern environment, while still staying true to the functionality and style of the original website.",
+  tools: ["React", "Vite", "Routing", "UI / Icons / Styling", "Local Storage"],
+  liveUrl: "https://marshall-wayans.github.io/Qikao-Restaurant/"
 },
-{
-  "id": 2,
-  "title": "Travel Explorer Website",
-  "description": "A modern, interactive website for discovering and planning trips",
-  "image": harmony,
-  "category": "Web Development",
-  "why": "I built this project because I love traveling and wanted to create a place where people can explore destinations easily and get inspired for their next trip. I wanted it to be simple to use, visually appealing, and make planning a trip fun rather than stressful.",
-  "how": "I built it using React for a smooth and interactive interface, styled everything with TailwindCSS to make it responsive and clean, and added animations with Framer Motion to make the site feel lively and modern.",
-  "tools": ["React", "TailwindCSS", "Framer Motion"],
-  "liveUrl": "https://marshall-wayans.github.io/HarmonyTravels/"
-},
+// {
+//   id: 5,
+//   title: "Travel Explorer Website",
+//   description: "A modern, interactive website for discovering and planning trips",
+//   image: harmony,
+//   category: "Web Development",
+//   why: "I built this project because I love traveling and wanted to create a place where people can explore destinations easily and get inspired for their next trip. I wanted it to be simple to use, visually appealing, and make planning a trip fun rather than stressful.",
+//   how: "I built it using React for a smooth and interactive interface, styled everything with TailwindCSS to make it responsive and clean, and added animations with Framer Motion to make the site feel lively and modern.",
+//   tools: ["React", "TailwindCSS", "Framer Motion"],
+//   liveUrl: "https://marshall-wayans.github.io/HarmonyTravels/"
+// },
     // {
     //   id: 4,
     //   title: "Restaurant Booking System",
