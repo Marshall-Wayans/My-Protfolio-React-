@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import resume from "../assets/Marshal-1(RESUME).pdf";
+import resume from "../assets/RESUME.pdf";
 import "./Contact.css";
 
 const Contact = () => {
