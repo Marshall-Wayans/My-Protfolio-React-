@@ -199,6 +199,17 @@ liveUrl: "https://marshall-wayans.github.io/Qikao/",
           My <span>Projects</span>
         </motion.h2>
 
+                <motion.p
+          className="heading-subtext"
+          style={{ fontStyle: "italic" }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          Click to view my Projects
+        </motion.p>
+
         {/* Projects Grid */}
         <div className="projects-grid">
           {projects.map((project, index) => (

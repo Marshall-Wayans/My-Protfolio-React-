@@ -164,3 +164,13 @@
   margin-top: 0.5rem;
   font-style: italic;
 }
+
+.heading-subtext {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: -0.8rem;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  opacity: 0.9;
+}
